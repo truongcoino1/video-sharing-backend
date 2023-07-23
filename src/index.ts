@@ -6,7 +6,6 @@ import errorHandler from "./middlewares/errorHandler";
 import authMiddleware from "./middlewares/auth";
 import asyncMiddleware from "./middlewares/async";
 import cors from "cors";
-import authRoleMiddleware from "./middlewares/authRole";
 import connectDB from "./database/connectDB";
 import cookieParser from "cookie-parser";
 
@@ -19,7 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(asyncMiddleware(authMiddleware));
-app.use(asyncMiddleware(authRoleMiddleware));
 
 /* routes */
 routes(app).then(() => {
