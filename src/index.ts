@@ -21,11 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(asyncMiddleware(authMiddleware));
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-});
+const io = new Server(server);
 global.io = io;
 
 io.on("connection", (socket) => {
