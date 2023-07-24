@@ -16,5 +16,5 @@ export default {
   cli: {
     entitiesDir: "src/entities",
   },
-  ssl: true
+  ssl: process.env.SSL === "true",
 };

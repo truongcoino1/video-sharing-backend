@@ -3,7 +3,6 @@ import http from "http";
 import dotenv from "dotenv";
 import routes from "./routes";
 import bodyParser from "body-parser";
-import errorHandler from "./middlewares/errorHandler";
 import authMiddleware from "./middlewares/auth";
 import asyncMiddleware from "./middlewares/async";
 import cors from "cors";
@@ -23,7 +22,7 @@ app.use(asyncMiddleware(authMiddleware));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://video-sharing-orpin.vercel.app",
+    origin: process.env.DOMAIN_ORIGIN,
   },
 });
 global.io = io;
@@ -33,8 +32,7 @@ io.on("connection", () => {
 });
 
 /* routes */
-routes(app, io).then(() => {
-  app.use(errorHandler);
+routes(app).then(() => {
   server.listen(PORT, () => {
     console.log(`⚡️[]: Server is running at http://localhost:${PORT}`);
   });

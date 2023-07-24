@@ -1,21 +1,13 @@
 version: "3"
 
 services:
-  mariadb:
-    image: mariadb:latest
-    # restart: always
-    volumes:
-      - game-mariadb:/var/lib/mysql
-
-    networks:
-      - game
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
     environment:
-      - TZ=Asia/Ho_Chi_Minh
-      - MYSQL_ROOT_PASSWORD=123qwe
-      - MYSQl_TCP_PORT=33030
-      - MYSQL_UNIX_PORT=33020
+      - POSTGRES_PASSWORD=123qwe
     ports:
-      - "3307:3306"
+      - "5432:5432"
   backend:
     build:
       context: .
@@ -23,8 +15,6 @@ services:
     command: yarn start
     volumes:
       - ./:/app:cached
-    networks:
-      - game
     # restart: always
     ports:
       - ${PORT}:${PORT}
@@ -32,8 +22,5 @@ services:
       - TZ=Asia/Ho_Chi_Minh
       - PORT=${PORT}
     depends_on:
-      - mariadb
+      - postgres
 
-volumes:
-  game-mariadb:
-  notused:

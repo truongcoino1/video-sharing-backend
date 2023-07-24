@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const routes = async (app: any, io: any) => {
+const routes = async (app: any) => {
   const fileNames = fs.readdirSync("src/routes");
   for (let i = 0; i < fileNames.length; i++) {
     const fileName = fileNames[i];

@@ -1,6 +1,7 @@
 import { getRepository } from "typeorm";
 import { Movie } from "../../../entities/movie";
 import { SORTBY } from "../../../types/type.filter";
+import config from "../../../configs";
 
 const findIfOneCondition = async (movie: Movie) => {
   const movieRepository = getRepository(Movie);
@@ -45,7 +46,7 @@ const getMovies = async (filter: { pageSize: number; lastMovieId?: number; order
   }
 
   query.orderBy("m.createdAt", orderBy);
-  query.limit(pageSize);
+  query.limit(pageSize || config.MAX_RECORDS_PER_REQ);
   return await query.getMany();
 };
 
