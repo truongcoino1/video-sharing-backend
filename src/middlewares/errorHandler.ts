@@ -1,13 +1,11 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (
   err: { code: number; statusCode: number; details: any; message: any },
   req: Request,
   res: Response,
-  next: NextFunction,
 ) => {
-  console.log("err", err);
   let statusCode = Number(err.code) || Number(err.statusCode) || 400;
   let { message } = err;
   let details;

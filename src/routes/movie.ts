@@ -4,7 +4,7 @@ import asyncMiddleware from "../middlewares/async";
 
 const router = express.Router();
 
-router.get("/movie", asyncMiddleware(movie.getMovies));
+router.get("/public/movie", asyncMiddleware(movie.getMovies));
 router.post("/movie", asyncMiddleware(movie.shareMovie));
 
 export default router;

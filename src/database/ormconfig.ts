@@ -4,7 +4,7 @@ dotenv.config({ path: "./.env" });
 
 export default {
   name: "default",
-  type: "mysql",
+  type: "postgres",
   host: process.env.MYSQL_HOST,
   port: process.env.MYSQL_PORT,
   username: process.env.MYSQL_USERNAME,
@@ -16,4 +16,5 @@ export default {
   cli: {
     entitiesDir: "src/entities",
   },
+  ssl: true
 };

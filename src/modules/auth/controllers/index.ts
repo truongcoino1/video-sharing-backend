@@ -4,16 +4,22 @@ import CustomError from "../../../errors/customError";
 import codes from "../../../errors/codes";
 import { getNewAccessTokenFromRefreshToken, deleteRefreshToken } from "../services/refresh";
 import configs from "../../../configs";
+import { generateAccessToken, generateRefreshToken } from "../services/helper";
 
 const login = async (req: Request, res: Response) => {
   const user = await authService.createUser(req.body);
-  res.cookie("token", refreshToken, {
+  const token = await generateAccessToken(user.id);
+  const refreshToken = await generateRefreshToken(user.id);
+  res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     maxAge: configs.TIME_REFRESH_TOKEN_EXPIRE,
   });
   return res.status(200).json({
     status: "success",
-    result: user,
+    result: {
+      ...user,
+      token,
+    },
   });
 };
 

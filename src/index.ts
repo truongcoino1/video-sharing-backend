@@ -1,4 +1,5 @@
 import express from "express";
+import http from "http";
 import dotenv from "dotenv";
 import routes from "./routes";
 import bodyParser from "body-parser";
@@ -8,6 +9,7 @@ import asyncMiddleware from "./middlewares/async";
 import cors from "cors";
 import connectDB from "./database/connectDB";
 import cookieParser from "cookie-parser";
+import { Server } from "socket.io";
 
 dotenv.config();
 const app = express();
@@ -18,12 +20,30 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(asyncMiddleware(authMiddleware));
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
+global.io = io;
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+});
 
 /* routes */
-routes(app).then(() => {
+routes(app, io).then(() => {
   app.use(errorHandler);
-
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`⚡️[]: Server is running at http://localhost:${PORT}`);
   });
 });
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      io: any;
+    }
+  }
+}

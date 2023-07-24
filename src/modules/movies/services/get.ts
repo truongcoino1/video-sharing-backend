@@ -26,7 +26,7 @@ const findIfAllCondition = async (movie: Movie) => {
   return await query.getOne();
 };
 
-const getMovies = async (filter: { pageSize: number; lastMovieId: number; orderBy: SORTBY }) => {
+const getMovies = async (filter: { pageSize: number; lastMovieId?: number; orderBy: SORTBY }) => {
   const { lastMovieId, pageSize, orderBy } = filter;
   const movieRepository = getRepository(Movie);
   const query = movieRepository.createQueryBuilder("m");
@@ -40,7 +40,10 @@ const getMovies = async (filter: { pageSize: number; lastMovieId: number; orderB
     "m.createdAt",
     "m.updatedAt",
   ]);
-  query.andWhere("m.id < :lastMovieId", { lastMovieId });
+  if (lastMovieId) {
+    query.andWhere("m.id < :lastMovieId", { lastMovieId });
+  }
+
   query.orderBy("m.createdAt", orderBy);
   query.limit(pageSize);
   return await query.getMany();
