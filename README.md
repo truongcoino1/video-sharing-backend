@@ -4,63 +4,46 @@ This is a backend boilder template.
 
 Happy coding!
 
-# Start application
-
-- ### First:
-
-copy .env, docker-compose.yml, dockerfile:
-
+### Backend Setup
+#### 1. Clone repository and install dependencies
+- Clone repository from gitthub
+```bash
+git clone https://github.com/truongcoino1/video-sharing-backend
+```
+```bash
+cd video-sharing-backend
+```
+#### 2. Setup and start application
+Setup a development with Docker.
+- copy .env, docker-compose.yml, dockerfile:
 ```bash
 cp .env.example .env && cp docker-compose.dev docker-compose.yml && cp Dockerfile.dev Dockerfile
 ```
-
-build container:
-
+- build container:
 ```bash
 docker-compose build
 ```
 
-- ### If this is the first time you install this app, please follow these steps:
-
-create network:
-
+- install dependencies:
 ```bash
-docker network create game
+docker-compose run backend yarn install
 ```
-
-install package:
-
-```bash
-docker-compose run backend yarn
-```
-
-bash into mariadb container:
-
-```bash
-docker exec -it game_be_mariadb_1 bash
-```
-
-access mysql:
-
-```bash
-mysql -u root -p
-```
-password: 123qwe
-
-create database name "game":
-
-```bash
-create database game;
-```
-
-migrate database:
-
-```bash
-docker-compose run backend yarn migrate:run
-```
-
-- ### Finally (next time you start app, you only need to run this command):
-
+#### 3. Running the Application
 ```bash
 docker-compose up
 ```
+
+Server is running at http://localhost:5001
+#### 4. Start test
+- Install dependencies
+    ```bash
+        npm run install
+    ```
+    or 
+    ```bash
+        yarn install
+    ```
+- Run tests
+    ```bash
+    yarn test
+    ```
