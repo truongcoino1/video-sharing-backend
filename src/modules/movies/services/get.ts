@@ -3,30 +3,6 @@ import { Movie } from "../../../entities/movie";
 import { SORTBY } from "../../../types/type.filter";
 import config from "../../../configs";
 
-const findIfOneCondition = async (movie: Movie) => {
-  const movieRepository = getRepository(Movie);
-  let key: keyof Movie;
-  let query = movieRepository.createQueryBuilder("m");
-  for (key in movie) {
-    if (movie[key]) {
-      query.orWhere(`m.${key} = :${key}`, { [key]: movie[key] });
-    }
-  }
-  return await query.getOne();
-};
-
-const findIfAllCondition = async (movie: Movie) => {
-  const movieRepository = getRepository(Movie);
-  let key: keyof Movie;
-  let query = movieRepository.createQueryBuilder("m");
-  for (key in movie) {
-    if (movie[key]) {
-      query.andWhere(`m.${key} = :${key}`, { [key]: movie[key] });
-    }
-  }
-  return await query.getOne();
-};
-
 const getMovies = async (filter: { pageSize: number; lastMovieId?: number; orderBy: SORTBY }) => {
   const { lastMovieId, pageSize, orderBy } = filter;
   const movieRepository = getRepository(Movie);
@@ -50,4 +26,4 @@ const getMovies = async (filter: { pageSize: number; lastMovieId?: number; order
   return await query.getMany();
 };
 
-export { findIfOneCondition, findIfAllCondition, getMovies };
+export { getMovies };

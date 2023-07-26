@@ -1,17 +1,18 @@
 import path from "path";
-import dotenv from "dotenv";
-dotenv.config({ path: "./.env" });
+import { loadEnvConfig } from "../configs/env";
+
+loadEnvConfig();
 
 export default {
   name: "default",
-  type: "postgres",
+  type: process.env.DB_TYPE || "postgres",
   host: process.env.MYSQL_HOST,
   port: process.env.MYSQL_PORT,
   username: process.env.MYSQL_USERNAME,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [path.join(__dirname, "..", "entities", "**", "*.*"), path.join(__dirname, "..", "entities", "*.*")],
   cli: {
     entitiesDir: "src/entities",

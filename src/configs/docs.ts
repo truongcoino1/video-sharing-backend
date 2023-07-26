@@ -5,7 +5,7 @@ const docOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Game API with Swagger",
+      title: "Video sharing API with Swagger",
       version: "0.1.0",
       description: "This is a simple CRUD API application made with Express and documented with Swagger",
       license: {
@@ -13,7 +13,7 @@ const docOptions = {
         url: "https://spdx.org/licenses/MIT.html",
       },
       contact: {
-        name: "Game",
+        name: "Video sharing",
         url: "https://test.com",
         email: "info@email.com",
       },

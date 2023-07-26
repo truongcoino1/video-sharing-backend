@@ -6,7 +6,7 @@ import { generateAccessToken } from "./helper";
 
 export const getNewAccessTokenFromRefreshToken = async (token: string) => {
   const tokenRepo = getRepository(Token);
-  const findToken = await tokenRepo.findOne({ where: { token } });
+  const findToken = await tokenRepo.findOne({ where: { token } });  
   if (!findToken) {
     throw new CustomError(codes.UNAUTHORIZED);
   }

@@ -1,6 +1,7 @@
+/* istanbul ignore file */
+
 import express from "express";
 import http from "http";
-import dotenv from "dotenv";
 import routes from "./routes";
 import bodyParser from "body-parser";
 import authMiddleware from "./middlewares/auth";
@@ -9,8 +10,17 @@ import cors from "cors";
 import connectDB from "./database/connectDB";
 import cookieParser from "cookie-parser";
 import { Server } from "socket.io";
+import { loadEnvConfig } from "./configs/env";
 
-dotenv.config();
+declare global {
+  namespace NodeJS {
+    interface Global {
+      io: any;
+    }
+  }
+}
+
+loadEnvConfig();
 const app = express();
 const PORT = process.env.PORT || 3000;
 connectDB();
@@ -25,6 +35,7 @@ const io = new Server(server, {
     origin: process.env.DOMAIN_ORIGIN,
   },
 });
+//@ts-ignore
 global.io = io;
 
 io.on("connection", () => {
@@ -38,10 +49,4 @@ routes(app).then(() => {
   });
 });
 
-declare global {
-  namespace NodeJS {
-    interface Global {
-      io: any;
-    }
-  }
-}
+export default server;

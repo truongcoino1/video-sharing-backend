@@ -8,8 +8,8 @@ import { generateAccessToken, generateRefreshToken } from "../services/helper";
 
 const login = async (req: Request, res: Response) => {
   const user = await authService.createUser(req.body);
-  const token = await generateAccessToken(user.id);
-  const refreshToken = await generateRefreshToken(user.id);
+  const token = await generateAccessToken(user?.id);
+  const refreshToken = await generateRefreshToken(user?.id);
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     maxAge: configs.TIME_REFRESH_TOKEN_EXPIRE,

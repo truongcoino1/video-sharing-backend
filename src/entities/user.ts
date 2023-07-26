@@ -1,6 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Token } from "./token";
 import { Movie } from "./movie";
+import { Column } from "../database/dbAwareColumn";
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()

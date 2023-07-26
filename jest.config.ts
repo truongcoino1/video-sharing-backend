@@ -1,19 +1,23 @@
 import type { Config } from "@jest/types";
+import { loadEnvConfig } from "./src/configs/env";
+
+loadEnvConfig();
 
 const config: Config.InitialOptions = {
   preset: "ts-jest",
   testEnvironment: "node",
+  setupFilesAfterEnv: ["./src/tests/setup.ts"],
   // verbose: true,
   // automock: true,
-  testPathIgnorePatterns: ["/__tests__/fake/"],
+  testPathIgnorePatterns: ["/__tests__/fake/", "/node_modules/", "/build/"],
   coverageThreshold: {
     global: {
-      branches: 60,
+      branches: 70,
       functions: 85,
       lines: 80,
       statements: 80,
     },
-    "./src/core/modules/": {
+    "./src/modules/": {
       branches: 70,
       functions: 90,
       lines: 90,
