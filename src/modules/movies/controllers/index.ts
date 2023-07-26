@@ -17,6 +17,7 @@ const getMovies = async (req: Request, res: Response) => {
 
 const shareMovie = async (req: Request, res: Response) => {
   const movie = await movieService.createMovie(req.body);
+  //@ts-ignore
   global.io.emit("share-movie", movie);
   return res.status(200).json({
     status: "success",

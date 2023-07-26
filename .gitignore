@@ -7,3 +7,4 @@ Dockerfile
 uploads
 .vscode
 data/certbot
+coverage

@@ -4,20 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/ts-node-dev --respawn --transpile-only --rs --watch src/docs src/index.ts",
-    "start:prod": "yarn build && node build/index.js",
+    "dev": "./node_modules/.bin/ts-node-dev --respawn --transpile-only --rs --watch src/docs src/index.ts",
+    "start": "yarn build && node build/index.js",
     "entity:create": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js -f /src/database/ormconfig.ts entity:create -n",
     "entity:revert": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js -f /src/database/ormconfig.ts entity:revert",
     "build": "rm -rf build && tsc",
     "typeorm": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm -f /src/database/ormconfig.ts",
     "seeding": "./node_modules/.bin/ts-node-dev src/seeds/index.ts",
     "lint": "eslint src --fix --cache",
-    "test": "jest"
+    "test": "jest --no-cache  --detectOpenHandles --runInBand --forceExit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@jest/globals": "^29.6.1",
     "@types/bcrypt": "^3.0.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/cookie-parser": "^1.4.3",
@@ -26,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
     "@typescript-eslint/typescript-estree": "^5.47.0",
+    "core-js": "^3.31.1",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -42,6 +44,7 @@
   "dependencies": {
     "@types/cors": "^2.8.10",
     "@types/jsonwebtoken": "^8.5.1",
+    "@types/supertest": "^2.0.12",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -57,6 +60,7 @@
     "pg": "^8.11.1",
     "prettier": "^2.8.7",
     "socket.io": "^4.7.1",
+    "sqlite3": "^5.1.6",
     "typeorm": "^0.2.31"
   }
 }
